@@ -1,0 +1,865 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "🔰 Kzu Hub [Free] | Game 🔰", -- Tên hub của bạn trong menu
+   LoadingTitle = "🔰 Kzu hub [Free] 🔰", -- Tên hub của bạn trong khi load
+   LoadingSubtitle = "by Kzu123",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Tạo thư mục tùy chỉnh cho hub/game của bạn
+      FileName = "Example Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink", -- Link mời vào Discord của bạn hoặc thứ khác
+      RememberJoins = false -- Chỉnh thành false để họ tham gia Discord hoặc thứ khác
+   },
+   KeySystem = true, -- Chuyển thành true để tạo gui nhập key và false để tắt gui
+   KeySettings = {
+      Title = "Key | Kzu Hub", -- Tên 
+      Subtitle = "Nhập key tại đây.", -- chú thích
+      Note = "Key ở trong Discord", 
+      FileName = "YoutubeHubKey1", -- Nên sử dụng một cái gì đó độc đáo vì các tập lệnh khác sử dụng Rayfield có thể ghi đè lên tệp khóa của bạn
+      SaveKey = true, -- Chuyển thành true để lưu key khi nhập không cần nhập lại nhưng khi đổi key thì sẽ không được lưu
+      GrabKeyFromSite = true, -- !Không quá quan trọng!
+      Key = {"Free_188BET"} -- Tạo key của bạn (ví dụ: 1234) hoặc có thể viết key của bạn vào link pastebin, github etc rồi dán vào 
+   }
+})
+
+local MainTab = Window:CreateTab("🏠MAIN", nil) -- Code tạo tab , viết tên tab + emoji đều được
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "Đã tải xong script", -- thông báo sau khi tải xong script
+   Content = "Tác giả : Kzu123", -- chú thích nho nhỏ
+   Duration = 5,
+   Image = 13047715178,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "Infinite Jump Toggle",
+   Callback = function()
+       --Toggles the infinite jump between on or off on every script run
+_G.infinjump = not _G.infinjump
+
+if _G.infinJumpStarted == nil then
+	--Ensures this only runs once to save resources
+	_G.infinJumpStarted = true
+	
+	--Notifies readiness
+	game.StarterGui:SetCore("SendNotification", {Title="Youtube Hub"; Text="Infinite Jump Activated!"; Duration=5;})
+
+	--The actual infinite jump
+	local plr = game:GetService('Players').LocalPlayer
+	local m = plr:GetMouse()
+	m.KeyDown:connect(function(k)
+		if _G.infinjump then
+			if k:byte() == 32 then
+			humanoid = game:GetService'Players'.LocalPlayer.Character:FindFirstChildOfClass('Humanoid')
+			humanoid:ChangeState('Jumping')
+			wait()
+			humanoid:ChangeState('Seated')
+			end
+		end
+	end)
+end
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "WalkSpeed Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderws", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+   end,
+})
+
+local Slider = MainTab:CreateSlider({
+   Name = "JumpPower Slider",
+   Range = {1, 350},
+   Increment = 1,
+   Suffix = "Speed",
+   CurrentValue = 16,
+   Flag = "sliderjp", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = (Value)
+   end,
+})
+
+local Dropdown = MainTab:CreateDropdown({
+   Name = "Select Area",
+   Options = {"Starter World","Pirate Island","Pineapple Paradise"},
+   CurrentOption = {"Starter World"},
+   MultipleOptions = false,
+   Flag = "dropdownarea", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Option)
+        print(Option)
+   end,
+})
+
+local Input = MainTab:CreateInput({
+   Name = "Walkspeed",
+   PlaceholderText = "1-500",
+   RemoveTextAfterFocusLost = true,
+   Callback = function(Text)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Text)
+   end,
+})
+
+local OtherSection = MainTab:CreateSection("Other")
+
+local Toggle = MainTab:CreateToggle({
+   Name = "Auto Farm",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+        print("FARMING")
+   end,
+})
+
+local TPTab = Window:CreateTab("🏝 Teleports", nil) -- Title, Image
+
+local Button1 = TPTab:CreateButton({
+   Name = "Starter Island",
+   Callback = function()
+        --Teleport1
+   end,
+})
+
+local Button2 = TPTab:CreateButton({
+   Name = "Pirate Island",
+   Callback = function()
+        --Teleport2
+   end,
+})
+
+local Button3 = TPTab:CreateButton({
+   Name = "Pineapple Paradise",
+   Callback = function()
+        --Teleport3
+   end,
+})
+
+
+
+
+local PVP_Tab = Window:CreateTab("⚔️PVP", nil)
+
+-- Đảm bảo Tab PVP đã tồn tại
+if not PVP_Tab then
+    PVP_Tab = Window:CreateTab("⚔️PVP", nil) -- Nếu tab chưa có, tạo mới
+end
+
+-- Cài đặt mặc định cho AimBot
+getgenv().setting = {
+    Fov = 50,
+    Color = Color3.fromRGB(191, 255, 209),
+    LockPlayers = false,
+    LockPlayersBind = Enum.KeyCode.L,
+    resetPlayersBind = Enum.KeyCode.P,
+}
+
+local Playersaimbot = nil
+local mouse = game.Players.LocalPlayer:GetMouse()
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local currentCamera = game:GetService("Workspace").CurrentCamera
+local circle = Drawing.new("Circle")
+local AimBotEnabled = false
+
+-- Hiển thị thông báo khi bật AimBot
+local function showAimBotNotification()
+    local gui = Instance.new("ScreenGui")
+    gui.Parent = game.Players.LocalPlayer:FindFirstChildOfClass("PlayerGui") or game.CoreGui
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0, 300, 0, 50)
+    label.Position = UDim2.new(0.5, -150, 0.4, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Color3.new(0, 255, 0)
+    label.TextStrokeTransparency = 0
+    label.TextStrokeColor3 = Color3.new(0, 0, 0)
+    label.TextScaled = true
+    label.Font = Enum.Font.SourceSansBold
+    label.Text = "Kzu Hub Aim [free]"
+    label.Parent = gui
+
+    spawn(function()
+        wait(3)
+        label:Destroy()
+        gui:Destroy()
+    end)
+end
+
+-- Hiển thị vòng tròn trong 1 giây rồi ẩn đi
+function showCircleOnce()
+    circle.Transparency = 1
+    circle.Visible = true
+    circle.Thickness = 2
+    circle.Color = getgenv().setting.Color
+    circle.NumSides = 100
+    circle.Radius = (getgenv().setting.Fov * 6) / 2
+    circle.Filled = false
+    circle.Position = Vector2.new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2)
+
+    spawn(function()
+        wait(1) -- Ẩn vòng tròn sau 1 giây
+        circle.Visible = false
+    end)
+end
+
+-- Xác định mục tiêu
+spawn(function()
+    while wait() do
+        if AimBotEnabled then
+            for _, v in pairs(players:GetPlayers()) do
+                if v ~= localPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                    local pos = currentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                    local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).Magnitude
+                    if magnitude < (getgenv().setting.Fov * 6 - 8) / 2 then
+                        if (v.Character.HumanoidRootPart.Position - localPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1000 then
+                            if not getgenv().setting.LockPlayers then
+                                Playersaimbot = v.Name
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+-- Hook vào RemoteEvent để tự động nhắm
+spawn(function()
+    local gg = getrawmetatable(game)
+    local old = gg.__namecall
+    setreadonly(gg, false)
+    gg.__namecall = newcclosure(function(...)
+        local method = getnamecallmethod()
+        local args = { ... }
+        if tostring(method) == "FireServer" and tostring(args[1]) == "RemoteEvent" then
+            if AimBotEnabled and Playersaimbot then
+                args[2] = players:FindFirstChild(Playersaimbot).Character.HumanoidRootPart.Position
+                return old(unpack(args))
+            end
+        end
+        return old(...)
+    end)
+end)
+
+-- Điều khiển bật/tắt AimBot bằng phím
+game:GetService("UserInputService").InputBegan:Connect(function(io, p)
+    if io.KeyCode == getgenv().setting.LockPlayersBind then
+        AimBotEnabled = not AimBotEnabled
+        if AimBotEnabled then
+            showAimBotNotification()
+            showCircleOnce() -- Gọi hàm hiển thị vòng tròn trong 1 giây
+        end
+    end
+    if io.KeyCode == getgenv().setting.resetPlayersBind then
+        Playersaimbot = nil
+        print("Reset AimBot Target")
+    end
+end)
+
+-- **Thêm Toggle vào PVP Tab**
+local ToggleAimbot = PVP_Tab:CreateToggle({
+    Name = "Aimbot Skill",
+    CurrentValue = false,
+    Flag = "ToggleAimbot",
+    Callback = function(Value)
+        AimBotEnabled = Value
+        if AimBotEnabled then
+            showAimBotNotification()
+            showCircleOnce() -- Gọi hàm hiển thị vòng tròn trong 1 giây
+        end
+    end,
+})
+
+
+
+
+
+
+local flyEnabled = false
+local flyScript = "https://rawscripts.net/raw/Universal-Script-Mobile-Fly-20327"
+
+local Toggle = PVP_Tab:CreateToggle({
+   Name = "Fly [VIP]",  -- Tên của nút
+   CurrentValue = false,  -- Mặc định tắt
+   Flag = "Fly_Toggle",  -- Flag nhận diện toggle
+   Callback = function(Value)
+        flyEnabled = Value
+        if flyEnabled then
+            loadstring(game:HttpGet(flyScript))()  -- Tải và chạy script Fly khi bật
+        end
+   end,
+})
+
+
+
+
+
+
+local aimlockEnabled = false
+local aimlockScript = "https://raw.githubusercontent.com/Shade-vex/b/refs/heads/main/Aimlock.txt"
+
+local Toggle = PVP_Tab:CreateToggle({
+   Name = "Aimlock",  -- Tên của nút toggle
+   CurrentValue = false,  -- Giá trị ban đầu của nút
+   Flag = "Aimlock_Toggle",  -- Dùng flag để xác định
+   Callback = function(Value)
+        aimlockEnabled = Value
+        if aimlockEnabled then
+            loadstring(game:HttpGet(aimlockScript))()  -- Tải và chạy script Aimlock khi bật
+        end
+   end,
+})
+
+
+
+
+
+
+
+-- Đảm bảo Tab PVP đã tồn tại
+if not PVP_Tab then
+    PVP_Tab = Window:CreateTab("⚔️PVP", nil) -- Nếu tab chưa có, tạo mới
+end
+
+local hitboxEnabled = false  -- Biến để bật/tắt hitbox
+local hitboxSize = Vector3.new(70, 70, 70)  -- Kích thước hitbox x70
+local transparency = 0.5  -- Độ trong suốt của hitbox (0 là không trong suốt, 1 là vô hình)
+local hitboxLoopRunning = false  -- Biến kiểm soát vòng lặp kiểm tra hitbox
+
+-- Hàm chỉnh hitbox của người chơi khác
+local function setHitbox(player)
+    if player == game.Players.LocalPlayer then return end  
+    local character = player.Character
+    if character and character:FindFirstChild("HumanoidRootPart") then
+        local rootPart = character.HumanoidRootPart
+        rootPart.Size = hitboxSize
+        rootPart.Transparency = transparency
+        rootPart.CanCollide = false
+    end
+end
+
+-- Kiểm tra và cập nhật hitbox cho tất cả người chơi
+local function checkAndSetHitboxes()
+    if hitboxEnabled then
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Character then
+                setHitbox(player)
+            end
+        end
+    end
+end
+
+-- Hiển thị chữ bảy màu khi bật hitbox
+local function showRainbowText()
+    local gui = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
+    local label = Instance.new("TextLabel", gui)
+
+    label.Size = UDim2.new(0.4, 0, 0.1, 0)
+    label.Position = UDim2.new(0.3, 0, 0.4, 0)
+    label.Text = "Kzu hub Hitbox"
+    label.Font = Enum.Font.SourceSansBold
+    label.TextScaled = true
+    label.BackgroundTransparency = 1
+    label.TextStrokeTransparency = 0
+    label.TextColor3 = Color3.new(1, 0, 0)
+
+    local colors = {
+        Color3.new(1, 0, 0),  Color3.new(1, 0.5, 0),
+        Color3.new(1, 1, 0),  Color3.new(0, 1, 0),
+        Color3.new(0, 1, 1),  Color3.new(0, 0, 1),
+        Color3.new(0.5, 0, 1)
+    }
+
+    task.spawn(function()
+        for i = 1, 30 do
+            label.TextColor3 = colors[(i % #colors) + 1]
+            wait(0.1)
+        end
+        gui:Destroy()
+    end)
+end
+
+-- Hàm bật/tắt hitbox
+local function toggleHitbox()
+    hitboxEnabled = not hitboxEnabled
+    if hitboxEnabled then
+        checkAndSetHitboxes()
+
+        game.Players.PlayerAdded:Connect(function(player)
+            player.CharacterAdded:Connect(function()
+                wait(3)
+                setHitbox(player)
+            end)
+        end)
+
+        game.Players.PlayerAdded:Connect(function(player)
+            player.CharacterAdded:Connect(function()
+                wait(3)
+                setHitbox(player)
+            end)
+        end)
+
+        showRainbowText()
+
+        hitboxLoopRunning = true
+        while hitboxLoopRunning do
+            wait(1)
+            checkAndSetHitboxes()
+        end
+    else
+        hitboxLoopRunning = false
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer then
+                local character = player.Character
+                if character and character:FindFirstChild("HumanoidRootPart") then
+                    local rootPart = character.HumanoidRootPart
+                    rootPart.Size = Vector3.new(2, 2, 1)
+                    rootPart.Transparency = 0
+                end
+            end
+        end
+    end
+end
+
+-- **Thay thế nút cũ bằng Toggle mới trong Tab PVP**
+local ToggleHitbox = PVP_Tab:CreateToggle({
+    Name = "Super Hitbox",
+    CurrentValue = false,
+    Flag = "ToggleHitbox",
+    Callback = function(Value)
+        toggleHitbox()
+    end,
+})
+
+
+
+
+
+
+local espEnabled = false -- Trạng thái bật/tắt ESP
+local connections = {} -- Lưu các kết nối để ngắt khi cần
+
+local function createESP(player)
+    if player == game.Players.LocalPlayer then return end -- Không hiển thị bản thân
+
+    local function updateESP()
+        local character = player.Character
+        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+
+        local billboard = Instance.new("BillboardGui")
+        billboard.Adornee = character.HumanoidRootPart
+        billboard.Size = UDim2.new(0, 200, 0, 50)
+        billboard.StudsOffset = Vector3.new(0, 3, 0)
+        billboard.AlwaysOnTop = true
+
+        local textLabel = Instance.new("TextLabel", billboard)
+        textLabel.Size = UDim2.new(1, 0, 1, 0)
+        textLabel.BackgroundTransparency = 1
+        textLabel.TextColor3 = Color3.new(0, 255, 0) -- Màu xanh lá
+        textLabel.TextScaled = false
+        textLabel.TextSize = 20
+        textLabel.Font = Enum.Font.SourceSansBold
+        textLabel.TextStrokeTransparency = 0.2
+        billboard.Parent = character.HumanoidRootPart
+
+        -- Cập nhật vị trí & giữ nguyên kích thước theo khoảng cách
+        spawn(function()
+            while espEnabled and character and character:FindFirstChild("Humanoid") and character:FindFirstChild("HumanoidRootPart") do
+                local humanoid = character:FindFirstChild("Humanoid")
+                local localPlayer = game.Players.LocalPlayer
+                if localPlayer and localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    local distance = (localPlayer.Character.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+                    local size = 15
+                    billboard.Size = UDim2.new(0, size * 10, 0, size * 2)
+                    textLabel.Text = string.format("[%s] HP: %d | %dm", player.Name, math.floor(humanoid.Health), math.floor(distance))
+                end
+                wait(0.1)
+            end
+            billboard:Destroy()
+        end)
+    end
+
+    -- Gán ESP khi nhân vật mới spawn
+    if not connections[player] then
+        connections[player] = player.CharacterAdded:Connect(function()
+            if espEnabled then
+                wait(1) -- Đợi nhân vật load xong
+                updateESP()
+            end
+        end)
+    end
+
+    -- Nếu nhân vật đã tồn tại, tạo ESP luôn
+    if player.Character then
+        updateESP()
+    end
+end
+
+-- Hàm bật/tắt ESP
+local function toggleESP(Value)
+    espEnabled = Value -- Trạng thái toggle sẽ quyết định bật/tắt ESP
+
+    if espEnabled then
+        -- Thêm ESP cho tất cả người chơi hiện tại
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player ~= game.Players.LocalPlayer then
+                createESP(player)
+            end
+        end
+
+        -- Lắng nghe người chơi mới tham gia
+        connections["PlayerAdded"] = game.Players.PlayerAdded:Connect(function(player)
+            if espEnabled then createESP(player) end
+        end)
+    else
+        -- Xóa toàn bộ ESP khi tắt
+        for _, player in pairs(game.Players:GetPlayers()) do
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                for _, gui in pairs(player.Character.HumanoidRootPart:GetChildren()) do
+                    if gui:IsA("BillboardGui") then gui:Destroy() end
+                end
+            end
+        end
+
+        -- Ngắt tất cả kết nối
+        for _, conn in pairs(connections) do
+            if conn and typeof(conn) == "RBXScriptConnection" then
+                conn:Disconnect()
+            end
+        end
+        connections = {}
+    end
+end
+
+-- Tạo Tab và Toggle để bật/tắt ESP
+local ESP_Tab = Window:CreateTab("🔥ESP", nil)  -- Tạo Tab 
+local Toggle = ESP_Tab:CreateToggle({
+   Name = "ESP PLAYER",
+   CurrentValue = false,
+   Flag = "ESP_Toggle",  -- Cờ lưu trữ trạng thái toggle
+   Callback = function(Value)
+        toggleESP(Value)  -- Gọi hàm bật/tắt ESP khi toggle thay đổi
+   end,
+})
+
+
+
+
+
+
+local espFruitEnabled = false
+local fruitLabelVI = nil
+local fruitLabelEN = nil
+
+-- Hàm phát hiện ngôn ngữ của game
+local function getGameLanguage()
+    local locale = game.LocalizationService.RobloxLocaleId
+    if locale:find("en") then
+        return "en" -- Tiếng Anh
+    else
+        return "vi" -- Tiếng Việt (mặc định)
+    end
+end
+
+-- Hàm tìm trái cây trong nhiều thư mục khác nhau
+local function findClosestFruit()
+    local localPlayer = game.Players.LocalPlayer
+    if not localPlayer or not localPlayer.Character or not localPlayer.Character:FindFirstChild("HumanoidRootPart") then return nil, math.huge end
+
+    local closestFruit = nil
+    local closestDistance = math.huge
+    local humanoidRootPart = localPlayer.Character.HumanoidRootPart
+
+    local function checkFolder(folder)
+        for _, fruit in pairs(folder:GetChildren()) do
+            if (fruit:IsA("Tool") or fruit:IsA("Model") or fruit:IsA("Part")) and fruit:FindFirstChild("Handle") then
+                local distance = (humanoidRootPart.Position - fruit.Handle.Position).Magnitude
+                if distance < closestDistance then
+                    closestFruit = fruit
+                    closestDistance = distance
+                end
+            end
+        end
+    end
+
+    -- Kiểm tra trong các thư mục có thể chứa trái cây
+    checkFolder(game.Workspace)
+    if game.Workspace:FindFirstChild("Fruits") then
+        checkFolder(game.Workspace.Fruits)
+    end
+    if game.ReplicatedStorage:FindFirstChild("Fruits") then
+        checkFolder(game.ReplicatedStorage.Fruits)
+    end
+
+    return closestFruit, closestDistance
+end
+
+-- Cập nhật UI hiển thị khoảng cách đến trái cây gần nhất
+local function updateFruitESP()
+    if not espFruitEnabled then return end
+
+    local closestFruit, closestDistance = findClosestFruit()
+
+    -- Xác định ngôn ngữ hiển thị
+    local lang = getGameLanguage()
+
+    if closestFruit then
+        if lang == "vi" and fruitLabelVI then
+            fruitLabelVI.Text = string.format("Đã phát hiện trái cây: Cách đây %dm", math.floor(closestDistance))
+            fruitLabelEN.Text = ""
+        elseif lang == "en" and fruitLabelEN then
+            fruitLabelEN.Text = string.format("FRUIT DETECTED: %dm away.", math.floor(closestDistance))
+            fruitLabelVI.Text = ""
+        end
+    else
+        if fruitLabelVI then fruitLabelVI.Text = "" end
+        if fruitLabelEN then fruitLabelEN.Text = "" end
+    end
+end
+
+-- Hàm bật/tắt ESP trái cây
+local function toggleFruitESP(Value)
+    espFruitEnabled = Value
+
+    if espFruitEnabled then
+        if not fruitLabelVI or not fruitLabelEN then
+            local gui = Instance.new("ScreenGui")
+            gui.Parent = game.Players.LocalPlayer:FindFirstChildOfClass("PlayerGui") or game.CoreGui
+
+            -- Tiếng Việt
+            fruitLabelVI = Instance.new("TextLabel")
+            fruitLabelVI.Size = UDim2.new(0, 500, 0, 50)
+            fruitLabelVI.Position = UDim2.new(0.5, -250, 0.56, 0)
+            fruitLabelVI.BackgroundTransparency = 1
+            fruitLabelVI.TextColor3 = Color3.new(1, 1, 1)
+            fruitLabelVI.TextStrokeTransparency = 0
+            fruitLabelVI.TextStrokeColor3 = Color3.new(0, 0, 0)
+            fruitLabelVI.TextSize = 30
+            fruitLabelVI.Font = Enum.Font.SourceSansBold
+            fruitLabelVI.Text = ""
+            fruitLabelVI.Parent = gui
+
+            -- Tiếng Anh
+            fruitLabelEN = Instance.new("TextLabel")
+            fruitLabelEN.Size = UDim2.new(0, 500, 0, 50)
+            fruitLabelEN.Position = UDim2.new(0.5, -250, 0.56, 0)
+            fruitLabelEN.BackgroundTransparency = 1
+            fruitLabelEN.TextColor3 = Color3.new(1, 1, 1)
+            fruitLabelEN.TextStrokeTransparency = 0
+            fruitLabelEN.TextStrokeColor3 = Color3.new(0, 0, 0)
+            fruitLabelEN.TextSize = 30
+            fruitLabelEN.Font = Enum.Font.SourceSansBold
+            fruitLabelEN.Text = ""
+            fruitLabelEN.Parent = gui
+        end
+
+        spawn(function()
+            while espFruitEnabled do
+                updateFruitESP()
+                wait(0.5)
+            end
+            if fruitLabelVI then fruitLabelVI.Text = "" end
+            if fruitLabelEN then fruitLabelEN.Text = "" end
+        end)
+    else
+        if fruitLabelVI then fruitLabelVI.Text = "" end
+        if fruitLabelEN then fruitLabelEN.Text = "" end
+    end
+end
+
+-- Sử dụng CreateToggle để thay thế nút
+local Toggle = ESP_Tab:CreateToggle({
+    Name = "FRUIT NOTIFIER",
+    CurrentValue = false,
+    Flag = "FruitToggle", -- Flag để lưu trạng thái bật/tắt
+    Callback = function(Value)
+        toggleFruitESP(Value)  -- Gọi hàm bật/tắt ESP trái cây với giá trị của Toggle
+    end,
+})
+
+
+local Hop_Tab = Window:CreateTab("🎭Server hop", nil)
+
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+
+local function switchServer()
+    local success, servers = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+
+    if success and servers and servers.data then  
+        for _, server in pairs(servers.data) do  
+            if server.id ~= game.JobId and server.playing >= 7 and server.playing <= 8 then  
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)  
+                return  
+            end  
+        end  
+    end
+end
+
+-- Tạo Toggle để đổi server
+local Toggle = Hop_Tab:CreateToggle({
+    Name = "Tìm full moon",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        if Value then
+            switchServer()
+        end
+    end,
+})
+
+
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+
+local function switchServer()
+    local success, servers = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+
+    if success and servers and servers.data then  
+        for _, server in pairs(servers.data) do  
+            if server.id ~= game.JobId and server.playing >= 7 and server.playing <= 8 then  
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)  
+                return  
+            end  
+        end  
+    end
+end
+
+-- Tạo Toggle để đổi server
+local Toggle = Hop_Tab:CreateToggle({
+    Name = "Tìm râu đen",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            switchServer()
+        end
+    end,
+})
+
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+
+local function switchServer()
+    local success, servers = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+
+    if success and servers and servers.data then  
+        for _, server in pairs(servers.data) do  
+            if server.id ~= game.JobId and server.playing >= 7 and server.playing <= 8 then  
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)  
+                return  
+            end  
+        end  
+    end
+end
+
+-- Tạo Toggle để đổi server
+local Toggle = Hop_Tab:CreateToggle({
+    Name = "Tìm Katakuri",
+    CurrentValue = false,
+    Flag = "Toggle3",
+    Callback = function(Value)
+        if Value then
+            switchServer()
+        end
+    end,
+})
+
+
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+
+local function switchServer()
+    local success, servers = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+
+    if success and servers and servers.data then  
+        for _, server in pairs(servers.data) do  
+            if server.id ~= game.JobId and server.playing >= 7 and server.playing <= 8 then  
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)  
+                return  
+            end  
+        end  
+    end
+end
+
+-- Tạo Toggle để đổi server
+local Toggle = Hop_Tab:CreateToggle({
+    Name = "Tìm rip_indra",
+    CurrentValue = false,
+    Flag = "Toggle4",
+    Callback = function(Value)
+        if Value then
+            switchServer()
+        end
+    end,
+})
+
+
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local PlaceId = game.PlaceId
+
+local function switchServer()
+    local success, servers = pcall(function()
+        return HttpService:JSONDecode(game:HttpGet("https://games.roblox.com/v1/games/" .. PlaceId .. "/servers/Public?sortOrder=Asc&limit=100"))
+    end)
+
+    if success and servers and servers.data then  
+        for _, server in pairs(servers.data) do  
+            if server.id ~= game.JobId and server.playing >= 7 and server.playing <= 8 then  
+                TeleportService:TeleportToPlaceInstance(PlaceId, server.id, game.Players.LocalPlayer)  
+                return  
+            end  
+        end  
+    end
+end
+
+-- Tạo Toggle để đổi server
+local Toggle = Hop_Tab:CreateToggle({
+    Name = "Tìm quái lưỡi hãi",
+    CurrentValue = false,
+    Flag = "Toggle5",
+    Callback = function(Value)
+        if Value then
+            switchServer()
+        end
+    end,
+})
+
+
+
+local TPTab = Window:CreateTab("🎲 Misc", nil) -- Title, Image
