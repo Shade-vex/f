@@ -29,18 +29,32 @@ do
 
 ----------các code
 
-local RedzHubButton = Tabs.Main:AddButton({
+Tabs.Main:AddButton({
     Title = "Redz Hub",
     Description = "Chạy script Redz Hub",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/b/refs/heads/main/realredz.txt"))()
+        task.spawn(function()
+            local success, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/b/refs/heads/main/realredz.txt"))()
+            end)
+            if not success then
+                warn("Lỗi khi chạy Redz Hub:", err)
+            end
+        end)
     end
 })
 
-local KzuHubButton = Tabs.Main:AddButton({
+Tabs.Main:AddButton({
     Title = "Kzu Hub [Free]",
     Description = "Chạy script Kzu Hub [Free]",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/b/refs/heads/main/KzuFree.txt"))()
+        task.spawn(function()
+            local success, err = pcall(function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/Shade-vex/b/refs/heads/main/KzuFree.txt"))()
+            end)
+            if not success then
+                warn("Lỗi khi chạy Kzu Hub:", err)
+            end
+        end)
     end
 })
