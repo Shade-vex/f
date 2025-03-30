@@ -20,9 +20,9 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "Nhập key tại đây.", -- chú thích
       Note = "Key ở trong Discord", 
       FileName = "YoutubeHubKey1", -- Nên sử dụng một cái gì đó độc đáo vì các tập lệnh khác sử dụng Rayfield có thể ghi đè lên tệp khóa của bạn
-      SaveKey = true, -- Chuyển thành true để lưu key khi nhập không cần nhập lại nhưng khi đổi key thì sẽ không được lưu
+      SaveKey = true, -- Chuyển thành true để lưu key khi nhập không cần nhập lại nhưng khi đổi key thì sẽ không được lưu (cập nhật file mà key vẫn thế thì vẫn được lưu)
       GrabKeyFromSite = true, -- !Không quá quan trọng!
-      Key = {"Free_188BET"} -- Tạo key của bạn (ví dụ: 1234) hoặc có thể viết key của bạn vào link pastebin, github etc rồi dán vào 
+      Key = {"Free_kkkkkk"} -- Tạo key của bạn (ví dụ: 1234) hoặc có thể viết key của bạn vào link pastebin, github etc rồi dán vào 
    }
 })
 
