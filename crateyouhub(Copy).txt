@@ -10,9 +10,9 @@ local Window = Rayfield:CreateWindow({
       FileName = "Example Hub"
    },
    Discord = {
-      Enabled = false,
+      Enabled = true,       
       Invite = "noinvitelink", -- Link mời vào Discord của bạn hoặc thứ khác
-      RememberJoins = false -- Chỉnh thành false để họ tham gia Discord hoặc thứ khác
+      RememberJoins = true -- Chỉnh thành false để họ tham gia Discord hoặc thứ khác
    },
    KeySystem = true, -- Chuyển thành true để tạo gui nhập key và false để tắt gui
    KeySettings = {
