@@ -1,0 +1,2 @@
+-- Fly hub [ NEW! ]
+loadstring(Game:HttpGet("https://raw.githubusercontent.com/Shade-vex/f/refs/heads/main/Fly.lua.txt", true))() 
