@@ -10,7 +10,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "Example Hub"
    },
    Discord = {
-      Enabled = true,       
+      Enabled = false,       
       Invite = "noinvitelink", -- Link mời vào Discord của bạn hoặc thứ khác
       RememberJoins = true -- Chỉnh thành false để họ tham gia Discord hoặc thứ khác
    },
@@ -291,10 +291,10 @@ local ToggleAimbot = PVP_Tab:CreateToggle({
 
 
 
-
+--- Code bật các script
 
 local flyEnabled = false
-local flyScript = "https://rawscripts.net/raw/Universal-Script-Mobile-Fly-20327"
+local flyScript = "https://raw.githubusercontent.com/Shade-vex/f/refs/heads/main/Fly%5BVIP%5D.txt"
 
 local Toggle = PVP_Tab:CreateToggle({
    Name = "Fly [VIP]",  -- Tên của nút
